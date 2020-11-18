@@ -1,57 +1,57 @@
 import React, { Component } from 'react'
-// import './App.css'
-import TodoList from './TodoList'
-import TodoItems from './TodoItems'
+import './App.css'
+import Input from './Input'
+import Messages from './Messages'
 
 class App extends Component {
   inputElement = React.createRef()
   constructor() {
     super()
     this.state = {
-      items: [],
-      currentItem: {
+      Thread: [],
+      selectedMessage: {
         text: '',
-        key: '',
+        timeStamp: '',
       },
     }
   }
-  deleteItem = key => {
-    const filteredItems = this.state.items.filter(item => {
-      return item.key !== key
+  deleteItem = timeStamp => {
+    const filteredItems = this.state.Thread.filter(item => {
+      return item.timeStamp !== timeStamp
     })
     this.setState({
-      items: filteredItems,
+      Thread: filteredItems,
     })
   }
 
   handleInput = e => {
     const itemText = e.target.value
-    const currentItem = { text: itemText, key: Date.now() }
+    const selectedMessage = { text: itemText, timeStamp: Date.now() }
     this.setState({
-      currentItem,
+      selectedMessage,
     })
   }
   addItem = e => {
     e.preventDefault()
-    const newItem = this.state.currentItem
+    const newItem = this.state.selectedMessage
     if (newItem.text !== '') {
-      const items = [...this.state.items, newItem]
+      const Thread = [...this.state.Thread, newItem]
       this.setState({
-        items: items,
-        currentItem: { text: '', key: '' },
+        Thread: Thread,
+        selectedMessage: { text: '', timeStamp: '' },
       })
     }
   }
   render() {
     return (
       <div className="App">
-        <TodoList
+        <Input
           addItem={this.addItem}
           inputElement={this.inputElement}
           handleInput={this.handleInput}
-          currentItem={this.state.currentItem}
+          selectedMessage={this.state.selectedMessage}
         />
-        <TodoItems entries={this.state.items} deleteItem={this.deleteItem} />
+        <Messages entries={this.state.Thread} deleteItem={this.deleteItem} />
       </div>
     )
   }

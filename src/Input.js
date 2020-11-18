@@ -1,21 +1,21 @@
 import React, { Component } from 'react'
 
-class TodoList extends Component {
+class Input extends Component {
   componentDidUpdate() {
     this.props.inputElement.current.focus()
   }
   render() {
     return (
-      <div className="todoListMain">
+      <div className="Input">
         <div className="header">
           <form onSubmit={this.props.addItem}>
             <input
-              placeholder="Task"
+              placeholder="Message"
               ref={this.props.inputElement}
-              value={this.props.currentItem.text}
+              value={this.props.selectedMessage.text}
               onChange={this.props.handleInput}
             />
-            <button type="submit"> Add Task </button>
+            <button type="submit"> Add Message </button>
           </form>
         </div>
       </div>
@@ -23,4 +23,4 @@ class TodoList extends Component {
   }
 }
 
-export default TodoList
+export default Input
